@@ -1,6 +1,6 @@
-# DBAPI
+# BIGPT DBAPI
 
-A lightweight and flexible ASP.NET Core Web API for executing raw SQL queries across multiple database systems. Whether you're developing internal tools, testing queries, or building database utilities, **DBAPI** offers a simple and unified interface to interact with:
+A lightweight and flexible ASP.NET Core Web API for executing raw SQL queries across multiple database systems. Whether you're developing internal tools, testing queries, or building database utilities, **BIGPT DBAPI** offers a simple and unified interface to interact with:
 
 - ✅ Microsoft SQL Server  
 - ✅ PostgreSQL  
