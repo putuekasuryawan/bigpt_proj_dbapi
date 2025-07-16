@@ -1,4 +1,4 @@
-# BiGpt Web API
+# DBAPI
 
 A lightweight and flexible ASP.NET Core Web API for executing raw SQL queries across multiple database systems. Whether you're developing internal tools, testing queries, or building database utilities, **BiGpt Web API** offers a simple and unified interface to interact with:
 
