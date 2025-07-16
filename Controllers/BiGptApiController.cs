@@ -42,7 +42,26 @@ namespace BiGptWebApi.Controllers
                     }
                     catch (SqlException ex)
                     {
-                        var result = "Your Query or Command has been failed to execute. Message : " + ex.Message;
+                        string message;
+                        switch (ex.Number)
+                        {
+                            case 18456:
+                                message = "Login failed. Please check your SQL Server credentials.";
+                                break;
+                            case 4060:
+                                message = "The database is not accessible or does not exist.";
+                                break;
+                            case 208:
+                                message = "The specified table does not exist.";
+                                break;
+                            case 102:
+                                message = "Syntax error in your SQL query.";
+                                break;
+                            default:
+                                message = ex.Message;
+                                break;
+                        }
+                        var result = $"SQL Server Error ({ex.Number}): {message}";
                         return Json(result, new Newtonsoft.Json.JsonSerializerSettings());
                     }
                 }
@@ -77,9 +96,28 @@ namespace BiGptWebApi.Controllers
                             }
                         }
                     }
-                    catch (NpgsqlException ex)
+                    catch (PostgresException ex)
                     {
-                        var result = "Your Query or Command has been failed to execute. Message : " + ex.Message;
+                        string message;
+                        switch (ex.SqlState)
+                        {
+                            case "28000":
+                                message = "Authentication failed. Please check your username or password.";
+                                break;
+                            case "3D000":
+                                message = "The specified database does not exist.";
+                                break;
+                            case "42601":
+                                message = "Syntax error in your SQL query.";
+                                break;
+                            case "42P01":
+                                message = "The specified table does not exist.";
+                                break;
+                            default:
+                                message = ex.Message;
+                                break;
+                        }
+                        var result = $"PostgreSQL Error (SQLSTATE {ex.SqlState}): {message}";
                         return Json(result, new Newtonsoft.Json.JsonSerializerSettings());
                     }
                 }
@@ -116,7 +154,29 @@ namespace BiGptWebApi.Controllers
                     }
                     catch (MySqlException ex)
                     {
-                        var result = "Your Query or Command has been failed to execute. Message : " + ex.Message;
+                        string message;
+                        switch (ex.Number)
+                        {
+                            case 1045:
+                                message = "Authentication failed. Please check your username or password.";
+                                break;
+                            case 1049:
+                                message = "The specified database does not exist.";
+                                break;
+                            case 1064:
+                                message = "Syntax error in your SQL query.";
+                                break;
+                            case 1146:
+                                message = "The specified table does not exist.";
+                                break;
+                            case 2002:
+                                message = "Cannot connect to MySQL server. Check your server address.";
+                                break;
+                            default:
+                                message = ex.Message;
+                                break;
+                        }
+                        var result = $"MySQL Error ({ex.Number}): {message}";
                         return Json(result, new Newtonsoft.Json.JsonSerializerSettings());
                     }
                 }
